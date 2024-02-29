@@ -36,4 +36,9 @@ public class User extends AbstractEntity{
             joinColumns = @JoinColumn(name = "id_usr_role")
     )
     private List<Role> roles;
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "user")
+    private Stud stud;
+
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "user")
+    private Teacher teacher;
 }

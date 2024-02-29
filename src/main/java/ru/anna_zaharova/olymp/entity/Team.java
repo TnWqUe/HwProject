@@ -23,6 +23,7 @@ public class Team extends AbstractEntity{
     private LocalDate updatedAt;
     @Column(name = "description", length = 512)
     private String description;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_teacher")
     private Teacher leader;

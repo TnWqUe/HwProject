@@ -37,4 +37,8 @@ public class Stud extends AbstractEntity{
             joinColumns = @JoinColumn(name = "id_team")
     )
     private List<Team> teams;
+
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinColumn(name = "id_usr")
+    private User user;
 }
