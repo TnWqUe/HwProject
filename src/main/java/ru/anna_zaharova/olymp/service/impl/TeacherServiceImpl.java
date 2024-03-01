@@ -2,13 +2,19 @@ package ru.anna_zaharova.olymp.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.anna_zaharova.olymp.entity.Teacher;
+import ru.anna_zaharova.olymp.entity.User;
+import ru.anna_zaharova.olymp.exception.exceptions.EmptyFieldsException;
+import ru.anna_zaharova.olymp.exception.exceptions.NotFoundException;
 import ru.anna_zaharova.olymp.exception.exceptions.NullIdException;
 import ru.anna_zaharova.olymp.exception.exceptions.user.UserNotFoundException;
 import ru.anna_zaharova.olymp.repo.TeacherRepo;
 import ru.anna_zaharova.olymp.repo.UserRepo;
 import ru.anna_zaharova.olymp.rest.dto.teacher.NewTeacherRequest;
 import ru.anna_zaharova.olymp.service.TeacherService;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +43,13 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setId(request.getUserId());
 
         Teacher addedTeacher = teacherRepo.save(teacher);
+
+        Optional<User> userFromDb = userRepo.findById(request.getUserId());
+
+        User user = userFromDb.get();
+
+        user.setTeacher(teacher);
+        userRepo.save(user);
 
         return NewTeacherRequest.builder()
                 .userId(addedTeacher.getUser().getId())
