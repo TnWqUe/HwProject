@@ -1,8 +1,5 @@
 package ru.anna_zaharova.olymp.entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Team extends AbstractEntity{
     @Column(name = "name", length = 200, nullable = false)
     private String name;
@@ -42,5 +40,5 @@ public class Team extends AbstractEntity{
             inverseJoinColumns = @JoinColumn(name = "id_team"),
             joinColumns = @JoinColumn(name = "id_stud")
     )
-    private List<Stud> studs;
+    private List<Student> students;
 }

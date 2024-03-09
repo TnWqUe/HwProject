@@ -20,7 +20,7 @@ public class User extends AbstractEntity{
     @Column(name = "surname", nullable = false, length = 40)
     private String surname;
     @Column(name = "usrname", nullable = false, length = 40)
-    private String usrname;
+    private String username;
     @Column(name = "patronymic", nullable = false, length = 40)
     private String patronymic;
     @Column(name = "created_at", nullable = false)
@@ -37,7 +37,7 @@ public class User extends AbstractEntity{
     )
     private List<Role> roles;
     @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "user")
-    private Stud stud;
+    private Student student;
 
     @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST},mappedBy = "user")
     private Teacher teacher;

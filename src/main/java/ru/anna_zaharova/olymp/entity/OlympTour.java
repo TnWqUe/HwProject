@@ -1,9 +1,6 @@
 package ru.anna_zaharova.olymp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class OlympTour extends AbstractEntity{
     @Column(name = "name", length = 250, nullable = false)
     private String name;
@@ -63,7 +61,7 @@ public class OlympTour extends AbstractEntity{
             inverseJoinColumns = @JoinColumn(name = "id_olymp_tour"),
             joinColumns = @JoinColumn(name = "id_lang")
     )
-    private List<Lang> languages;
+    private List<Language> languages;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

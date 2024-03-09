@@ -1,5 +1,5 @@
 CREATE TABLE public.usr(
-                           id bigint,
+                           id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                            surname varchar(40) NOT NULL,
                            usrname varchar(40) NOT NULL,
                            patronymic varchar(40) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE public.usr(
 -- ddl-end --
 -- object: public.usr_role | type: TABLE --
 CREATE TABLE public.usr_role(
-                                id bigint,
+                                id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                 name varchar(50) NOT NULL,
                                 CONSTRAINT usr_role_id PRIMARY KEY (id)
 
@@ -21,7 +21,7 @@ CREATE TABLE public.usr_role(
 -- ddl-end --
 -- object: public.elective_course | type: TABLE --
 CREATE TABLE public.elective_course(
-                                       id bigint,
+                                       id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                        name varchar(150) NOT NULL,
                                        begin_date date NOT NULL,
                                        begin_time time NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE public.elective_course(
 -- ddl-end --
 -- object: public.olymp_tour | type: TABLE --
 CREATE TABLE public.olymp_tour(
-                                  id bigint,
+                                  id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                   name varchar(250) NOT NULL,
                                   olymp_url varchar(200) NOT NULL,
                                   organizer varchar(250) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE public.olymp_tour(
 -- ddl-end --
 -- object: public.stud | type: TABLE --
 CREATE TABLE public.stud(
-                            id bigint,
+                            id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                             stud_group varchar(15) NOT NULL,
                             id_dept bigint,
                             id_usr bigint,
@@ -65,7 +65,7 @@ CREATE TABLE public.stud(
 -- ddl-end --
 -- object: public.teacher | type: TABLE --
 CREATE TABLE public.teacher(
-                               id bigint,
+                               id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                mpei_url varchar(200) NOT NULL,
                                id_usr bigint,
                                CONSTRAINT teacher_id PRIMARY KEY (id)
@@ -74,7 +74,7 @@ CREATE TABLE public.teacher(
 -- ddl-end --
 -- object: public.discipline | type: TABLE --
 CREATE TABLE public.discipline(
-                                  id bigint,
+                                  id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                   name varchar(100) NOT NULL,
                                   CONSTRAINT discipline_id PRIMARY KEY (id)
 
@@ -82,8 +82,8 @@ CREATE TABLE public.discipline(
 -- ddl-end --
 -- object: public.usr_usr_role | type: TABLE --
 CREATE TABLE public.usr_usr_role(
-                                    id_usr bigint,
-                                    id_usr_role bigint,
+                                    id_usr bigint NOT NULL,
+                                    id_usr_role bigint NOT NULL,
                                     CONSTRAINT usr_usr_role_pk PRIMARY KEY (id_usr,id_usr_role)
 
 );
@@ -104,7 +104,7 @@ ALTER TABLE public.usr_usr_role ADD CONSTRAINT usr_role_fk FOREIGN KEY (id_usr_r
 
 -- object: public.dept | type: TABLE --
 CREATE TABLE public.dept(
-                            id bigint,
+                            id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                             name varchar(100) NOT NULL,
                             id_orgn bigint,
                             CONSTRAINT dept_id PRIMARY KEY (id)
@@ -113,7 +113,7 @@ CREATE TABLE public.dept(
 -- ddl-end --
 -- object: public.olymp_level | type: TABLE --
 CREATE TABLE public.olymp_level(
-                                   id bigint,
+                                   id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                    name varchar(40) NOT NULL,
                                    CONSTRAINT olymp_level_id PRIMARY KEY (id)
 
@@ -121,7 +121,7 @@ CREATE TABLE public.olymp_level(
 -- ddl-end --
 -- object: public.lang | type: TABLE --
 CREATE TABLE public.lang(
-                            id bigint,
+                            id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                             name varchar(50) NOT NULL,
                             CONSTRAINT lang_id PRIMARY KEY (id)
 
@@ -129,7 +129,7 @@ CREATE TABLE public.lang(
 -- ddl-end --
 -- object: public.orgn | type: TABLE --
 CREATE TABLE public.orgn(
-                            id bigint,
+                            id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                             name varchar(50) NOT NULL,
                             CONSTRAINT orgn_id PRIMARY KEY (id)
 
@@ -137,7 +137,7 @@ CREATE TABLE public.orgn(
 -- ddl-end --
 -- object: public.day_week | type: TABLE --
 CREATE TABLE public.day_week(
-                                id bigint,
+                                id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                 name varchar(11) NOT NULL,
                                 CONSTRAINT day_week_id PRIMARY KEY (id)
 
@@ -145,7 +145,7 @@ CREATE TABLE public.day_week(
 -- ddl-end --
 -- object: public.olymp_format | type: TABLE --
 CREATE TABLE public.olymp_format(
-                                    id bigint,
+                                    id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                                     name varchar(60) NOT NULL,
                                     CONSTRAINT olymp_format_id PRIMARY KEY (id)
 
@@ -167,7 +167,7 @@ ALTER TABLE public.stud ADD CONSTRAINT dept_fk FOREIGN KEY (id_dept)
 
 -- object: public.team | type: TABLE --
 CREATE TABLE public.team(
-                            id bigint,
+                            id bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
                             name varchar(200) NOT NULL,
                             created_at date NOT NULL DEFAULT CURRENT_DATE,
                             updated_at date,
@@ -179,8 +179,8 @@ CREATE TABLE public.team(
 -- ddl-end --
 -- object: public.stud_team | type: TABLE --
 CREATE TABLE public.stud_team(
-                                 id_stud bigint,
-                                 id_team bigint,
+                                 id_stud bigint NOT NULL,
+                                 id_team bigint NOT NULL,
                                  CONSTRAINT stud_team_pk PRIMARY KEY (id_stud,id_team)
 
 );
@@ -201,8 +201,8 @@ ALTER TABLE public.stud_team ADD CONSTRAINT team_fk FOREIGN KEY (id_team)
 
 -- object: public.elective_course_discipline | type: TABLE --
 CREATE TABLE public.elective_course_discipline(
-                                                  id_elective_course bigint,
-                                                  id_discipline bigint,
+                                                  id_elective_course bigint NOT NULL,
+                                                  id_discipline bigint NOT NULL,
                                                   CONSTRAINT elective_course_discipline_pk PRIMARY KEY (id_elective_course,id_discipline)
 
 );
@@ -223,8 +223,8 @@ ALTER TABLE public.elective_course_discipline ADD CONSTRAINT discipline_fk FOREI
 
 -- object: public.teacher_elective_course | type: TABLE --
 CREATE TABLE public.teacher_elective_course(
-                                               id_teacher bigint,
-                                               id_elective_course bigint,
+                                               id_teacher bigint NOT NULL,
+                                               id_elective_course bigint NOT NULL,
                                                CONSTRAINT teacher_elective_course_pk PRIMARY KEY (id_teacher,id_elective_course)
 
 );
@@ -245,8 +245,8 @@ ALTER TABLE public.teacher_elective_course ADD CONSTRAINT elective_course_fk FOR
 
 -- object: public.elective_course_olymp_tour | type: TABLE --
 CREATE TABLE public.elective_course_olymp_tour(
-                                                  id_elective_course bigint,
-                                                  id_olymp_tour bigint,
+                                                  id_elective_course bigint NOT NULL,
+                                                  id_olymp_tour bigint NOT NULL,
                                                   CONSTRAINT elective_course_olymp_tour_pk PRIMARY KEY (id_elective_course,id_olymp_tour)
 
 );
@@ -274,8 +274,8 @@ ALTER TABLE public.olymp_tour ADD CONSTRAINT olymp_level_fk FOREIGN KEY (id_olym
 
 -- object: public.lang_olymp_tour | type: TABLE --
 CREATE TABLE public.lang_olymp_tour(
-                                       id_lang bigint,
-                                       id_olymp_tour bigint,
+                                       id_lang bigint NOT NULL,
+                                       id_olymp_tour bigint NOT NULL,
                                        CONSTRAINT lang_olymp_tour_pk PRIMARY KEY (id_lang,id_olymp_tour)
 
 );
@@ -303,8 +303,8 @@ ALTER TABLE public.olymp_tour ADD CONSTRAINT olymp_format_fk FOREIGN KEY (id_oly
 
 -- object: public.team_olymp_tour | type: TABLE --
 CREATE TABLE public.team_olymp_tour(
-                                       id_team bigint,
-                                       id_olymp_tour bigint,
+                                       id_team bigint NOT NULL,
+                                       id_olymp_tour bigint NOT NULL,
                                        CONSTRAINT team_olymp_tour_pk PRIMARY KEY (id_team,id_olymp_tour)
 
 );
@@ -325,8 +325,8 @@ ALTER TABLE public.team_olymp_tour ADD CONSTRAINT olymp_tour_fk FOREIGN KEY (id_
 
 -- object: public.stud_elective_course | type: TABLE --
 CREATE TABLE public.stud_elective_course(
-                                            id_stud bigint,
-                                            id_elective_course bigint,
+                                            id_stud bigint NOT NULL,
+                                            id_elective_course bigint NOT NULL,
                                             CONSTRAINT stud_elective_course_pk PRIMARY KEY (id_stud,id_elective_course)
 
 );

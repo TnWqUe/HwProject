@@ -4,10 +4,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.anna_zaharova.olymp.entity.User;
 
-import java.util.Optional;
-
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
-    Optional<User> findByUsrname(String usrname);
+    //поиск пароля по id пользователя
+    //   @Query(value = "select u.usr_psw from usr u where id = :id", nativeQuery = true)
+   // String findPasswordByUserId(@Param("id") Long id);
+
+    // существует ли пользователь с таким id
+    boolean existsById(Long id);
+    // существует ли пользователь с таким именем
+    boolean existsByUsername(String username);
 }
 
