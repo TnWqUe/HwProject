@@ -24,7 +24,7 @@ public class DayWeekServiceImpl implements DayWeekService {
     private final DayWeekRepo dayWeekRepo;
 
     @Override
-    public String addNewDayWeek(NewDayWeekRequest request) {
+    public Long addNewDayWeek(NewDayWeekRequest request) {
         if (!StringUtils.hasText(request.getName())) {
             throw new DayWeekFieldsEmptyException("Некорректные поля в запросе - необходимо заполнить необходимые");
         }
@@ -32,8 +32,7 @@ public class DayWeekServiceImpl implements DayWeekService {
         DayWeek dayWeek = new DayWeek();
         dayWeek.setName(request.getName());
         dayWeekRepo.saveAndFlush(dayWeek);
-        //return dayWeek.getId();
-        return dayWeek.getName();
+        return dayWeek.getId();
     }
 
     @Override

@@ -15,7 +15,7 @@ import ru.anna_zaharova.olymp.service.DayWeekService;
 public class DayWeekController {
     private final DayWeekService dayWeekService;
     @PostMapping
-    public ResponseEntity<String> addNewDayWeek(@RequestBody NewDayWeekRequest request) {
+    public ResponseEntity<Long> addNewDayWeek(@RequestBody NewDayWeekRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body( dayWeekService.addNewDayWeek(request));
     }
 
